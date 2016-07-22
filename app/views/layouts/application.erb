@@ -1,8 +1,21 @@
 <html>
 	<head>
-		<title>Sinatra Framework</title>
+		<title>Cheng's Quora</title>
+		<link rel="stylesheet" type="text/css" href="/css/application.css">
+		<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
+		<script type="text/javascript" src='/js/application.js' ></script>
 	</head>
 	<body>
 		<%= yield %>
+
+		<% if logged_in? %>
+			<form method="post" action="/logout">
+				<input type="submit" value="Log out">
+			</form>
+		<% end %>
+
 	</body>
 </html>
+
+
+
