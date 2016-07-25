@@ -1,0 +1,16 @@
+<h2>Register to post and answer questions!</h2>
+<form action="/register" method="post">
+	<input type="text" placeholder="Your Name" name="user[name]"> 
+	<br>
+	<input type="text" placeholder="Your Email" name="user[email]">
+	<br>
+	<input type="text" placeholder="Choose your Password" name="user[password]">
+	<br>
+	<input type="text" placeholder="Confirm your Password" name="user[password_confirmation]">
+	<input type="submit" value="Register">
+</form>
+
+<% if flash[:error] %>
+	<%= flash[:error] %>
+<% end %>
+

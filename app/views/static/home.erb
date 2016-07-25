@@ -1,22 +1,24 @@
-<h2>Welcome to Cheng's Quora!</h2>
-<form action="/register" method="post">
-	<input type="text" placeholder="Your Name" name="user[name]"> 
-	<br>
-	<input type="text" placeholder="Your Email" name="user[email]">
-	<br>
-	<input type="text" placeholder="Choose your Password" name="user[password]">
-	<br>
-	<input type="text" placeholder="Confirm your Password" name="user[password_confirmation]">
-	<input type="submit" value="Register">
-</form>
 
-<% if flash[:error] %>
-	<%= flash[:error] %>
+
+<ul>
+	<% Question.all.each do |question| %>
+		<li><a href="/questions/<%= question.id %>"><%=question.question_text%></a></li>
+	<% end %>
+</ul>
+
+<% if logged_in? %>
+	<h4><form method="get" action="/questions/new">
+					<input type="submit" value="Add a new question">
+			</form></h4>
+<% else %>
+	<h4><form method="get" action="/register">
+					<input type="submit" value="Register to start!">
+			</form></h4>
+
+	<h4><form method="get" action="/login">
+				<input type="submit" value="Login if you have an account!!">
+		</form></h4>
 <% end %>
-
-<form action="/login">
-    <input type="submit" value="Login">
-</form>
 
 
 

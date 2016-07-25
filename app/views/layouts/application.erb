@@ -6,6 +6,17 @@
 		<script type="text/javascript" src='/js/application.js' ></script>
 	</head>
 	<body>
+
+		<div id="navbar">
+			<div>
+				<a href="/"><h1>Quora Cheng</h1></a>
+			</div>
+		</div>
+
+		<% if logged_in? %>
+			<h2>Welcome <a href="/users/<%= current_user.id %>"><%=current_user.name%></a></h2>
+		<% end %>
+
 		<%= yield %>
 
 		<% if logged_in? %>

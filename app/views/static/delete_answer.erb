@@ -1,0 +1,18 @@
+<% if logged_in? %>
+
+	<h1>Delete the Answer</h1>
+	<h2>Question: <%= @answer.question.question_text %></h2>
+	<h2><%= @answer.answer_text %></h2>
+
+	<form method="post" action="/answers/<%= @answer.id %>">
+		<input type="hidden" name="_method" value="delete">
+		<input type="submit" value="Delete the answer">
+	</form>
+
+<% else %>
+
+	<form method="get" action="/register">
+		<input type="submit" value="Register/Login!">
+	</form>	
+
+<% end %>

@@ -1,0 +1,32 @@
+<%= @question.question_text %>
+
+<ul>
+	<% @question.answers.each do |answer| %>
+		<li><%= answer.answer_text %></li>
+	<% end %>
+</ul>
+
+
+<% if logged_in? %>
+	<form method="post" action="/questions">
+		<input type=text placeholder="Post another question!" name="question">
+		<input type="submit" value="Submit!">
+	</form>
+
+	<form method="post" action="/answers">
+		<input type=text placeholder="Or answer this question!" name="answer">
+		<input type="hidden" name="question[id]" value="<%= @question.id %>">
+		<input type="submit" value="Submit!">
+	</form>
+
+
+<% else %>
+
+	<form method="get" action="/register">
+		<input type="submit" value="Register/Login!">
+	</form>	
+
+<% end %>
+
+
+

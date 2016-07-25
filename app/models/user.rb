@@ -4,6 +4,9 @@ require 'bcrypt'
 
 class User < ActiveRecord::Base
 
+has_many :questions
+has_many :answers
+
 validates :email, uniqueness: {message: "already registered!"}
 validates :email, :format => { :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, :message => "invalid"}
 validates :password, :format => {:with => /\A(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}\z/, :message => "At least 8 characters required!"}

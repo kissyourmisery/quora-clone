@@ -1,0 +1,14 @@
+<% if logged_in? %>
+	<h1>Add a Question</h1>
+	<form method="post" action="/questions">
+		<input type=text placeholder="Post a question!" name="question">
+		<input type="submit" value="Submit!">
+	</form>
+
+<% else %>
+
+	<form method="get" action="/register">
+		<input type="submit" value="Register/Login!">
+	</form>	
+
+<% end %>

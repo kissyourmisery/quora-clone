@@ -1,0 +1,18 @@
+<% if logged_in? %>
+
+	<h1>Edit Question</h1>
+
+	<form method="post" action="/questions/<%= @question.id %>">
+		<input type="hidden" name="_method" value="put">
+		<input type="text" name="question[question_text]" value="<%= @question.question_text %>">
+		<input type="submit" value="Edit question">
+	</form>
+
+<% else %>
+
+	<form method="get" action="/register">
+		<input type="submit" value="Register/Login!">
+	</form>	
+
+<% end %>
+
