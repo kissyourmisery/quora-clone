@@ -26,6 +26,9 @@ gem 'rake'
 gem 'rspec'
 gem 'byebug'
 
+#To protect and encrypt user password
+gem 'bcrypt'
+
 group :development, :test do
 	# Adding shotgun for local web hosting
 	gem 'shotgun'
