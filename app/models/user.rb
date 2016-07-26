@@ -6,6 +6,8 @@ class User < ActiveRecord::Base
 
 has_many :questions
 has_many :answers
+has_many :question_votes
+has_many :answer_votes
 
 validates :email, uniqueness: {message: "already registered!"}
 validates :email, :format => { :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, :message => "invalid"}

@@ -1,0 +1,17 @@
+.beautify{
+	display: inline-block;
+	width: 200px;
+	height: 30px;
+	background-color: #F07444;
+	color: white;
+	border: 1px solid #F07444;
+	transition: .2s ease;
+	font-family: 'Scope One', serif;
+	font-size: 15px;
+} 
+
+.beautify:hover {
+	background-color: transparent;
+	color: black;
+	transition: .2s ease;
+}

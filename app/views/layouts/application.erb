@@ -22,16 +22,16 @@
 
 		<% if logged_in? %>
 			<form method="post" action="/logout">
-				<input type="submit" value="Log out">
+				<input class="beautify" type="submit" value="Log out">
 			</form>
-			
-		<% else %>
+
+		<% elsif !logged_in? && @page!='login' && @page!='register' %>
 			<h4><form method="get" action="/register">
-							<input type="submit" value="Register to start!">
+							<input class="beautify" type="submit" value="Register to start!">
 					</form></h4>
 
 			<h4><form method="get" action="/login">
-						<input type="submit" value="Login if you have an account!!">
+						<input class="beautify" type="submit" value="Login if you have an account!!">
 				</form></h4>
 
 		<% end %>

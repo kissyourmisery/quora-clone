@@ -1,4 +1,7 @@
-<%= @question.question_text %>
+<h1><%= @question.question_text %></h1>
+<h4><%= @question.count_upvotes %> Upvotes</h4>
+<h4><%= @question.count_downvotes %> Downvotes</h4>
+
 
 <ul>
 	<% @question.answers.each do |answer| %>
@@ -12,6 +15,7 @@
 		<input type=text placeholder="Post another question!" name="question">
 		<input type="submit" value="Submit!">
 	</form>
+
 
 	<form method="post" action="/answers">
 		<input type=text placeholder="Or answer this question!" name="answer">

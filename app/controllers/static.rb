@@ -7,6 +7,7 @@ get '/' do
 end
 
 get '/register' do
+	@page = "register"
   erb :"static/register"
 end
 
@@ -47,6 +48,7 @@ post '/register' do #'/register' action="/register" inside the form in the contr
 end
 
 get '/login' do
+	@page = "login"
 	erb :"static/login"
 end
 
@@ -81,7 +83,7 @@ put '/users/:id' do
 	current_user.update(params[:user])
 	redirect to '/users/' + current_user.id.to_s
 end
-#######
+
 post '/logout' do
 	session[:id] = nil
 	redirect '/'
@@ -155,6 +157,107 @@ delete '/answers/:id' do
 	answer.destroy
 	erb :"static/profile"
 end
+
+########QuestionVote #############
+post '/questions/:id/upvote' do
+
+	if logged_in?
+		vote = QuestionVote.find_by(question_id: params[:id], user_id: current_user.id)
+
+		if vote #check if question has been voted by user
+			if vote.vote == 1 #Check if that vote is an upvote. the second 'vote' is the column name whereas the first 'vote' is an object
+				@message = "You can only upvote once per question"
+				@question = Question.find(params[:id])
+				erb :"static/each_question"
+
+			else #if vote is a downvote, change vote to upvote
+				@message = "Your vote has been changed to upvote"
+				vote.update(vote: 1) #'update' is an active record method, not a column name
+				@question = Question.find(params[:id])
+				erb :"static/each_question"
+			end
+
+		else #if question has not been voted, create new vote
+			@message = "Your vote has been casted"
+			current_user.question_votes.create(question_id: params[:id], vote: 1)
+			@question = Question.find(params[:id])
+			erb :"static/each_question"
+		end
+
+	else
+		@message = "Please login to vote"
+		erb :"static/login"
+	end
+end
+
+post '/questions/:id/downvote' do
+
+	if logged_in?
+		vote = QuestionVote.find_by(question_id: params[:id], user_id: current_user.id)
+
+		if vote 
+			if vote.vote == 0 
+				@message = "You can only downvote once per question"
+				@question = Question.find(params[:id])
+				erb :"static/each_question"
+
+			else 
+				@message = "Your vote has been changed to downvote"
+				vote.update(vote: 0) 
+				@question = Question.find(params[:id])
+				erb :"static/each_question"
+			end
+
+		else 
+			@message = "Your vote has been casted"
+			current_user.question_votes.create(question_id: params[:id], vote: 0)
+			@question = Question.find(params[:id])
+			erb :"static/each_question"
+		end
+
+	else
+		@message = "Please login to vote"
+		erb :"static/login"
+	end
+end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
