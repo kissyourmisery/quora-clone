@@ -16,13 +16,19 @@ GEM
       tzinfo (~> 1.1)
     arel (6.0.3)
     backports (3.6.7)
+    bcrypt (3.1.11)
     builder (3.2.2)
     byebug (9.0.5)
+    commonjs (0.2.7)
     daemons (1.2.3)
     diff-lcs (1.2.5)
     eventmachine (1.0.8)
+    font-awesome-less (4.6.2)
+      less (>= 2.4.0)
     i18n (0.7.0)
     json (1.8.3)
+    less (2.6.0)
+      commonjs (~> 0.2.7)
     minitest (5.8.3)
     multi_json (1.11.2)
     pg (0.18.4)
@@ -84,7 +90,9 @@ PLATFORMS
 DEPENDENCIES
   activerecord
   activesupport
+  bcrypt
   byebug
+  font-awesome-less
   pg
   puma
   rails_12factor

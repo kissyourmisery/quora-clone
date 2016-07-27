@@ -1,3 +1,10 @@
+#log_out{
+	position:absolute;
+	top:0px;
+	right:0px;
+}
+
+
 .beautify{
 	display: inline-block;
 	width: 200px;
@@ -15,3 +22,126 @@
 	color: black;
 	transition: .2s ease;
 }
+
+/*login page*/
+body#overall{
+	background: url(http://static1.squarespace.com/static/54aaef8ee4b03ccd2a132a1c/t/54b0e707e4b02eb8a94d9256/1420879624266/6166830_orig.jpg?format=2500w) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  font-family:'HelveticaNeue','Arial', sans-serif;
+  position: absolute;
+  left: 35%;
+  top: 30%;
+}
+
+div.form-item{
+	position: relative; 
+	display: block; 
+	margin-bottom: 20px;}
+ input{transition: all .2s ease;}
+ input.form-style{
+	color:#8a8a8a;
+	display: block;
+	width: 90%;
+	height: 44px;
+	padding: 5px 5%;
+	border:1px solid #ccc;
+	-moz-border-radius: 27px;
+	-webkit-border-radius: 27px;
+	border-radius: 27px;
+	-moz-background-clip: padding;
+	-webkit-background-clip: padding-box;
+	background-clip: padding-box;
+	background-color: transparent;
+	font-family:'HelveticaNeue','Arial', sans-serif;
+	font-size: 105%;
+	letter-spacing: .8px;
+}
+
+div.form-item .form-style:focus{outline: none; border:1px solid #58bff6; color:#58bff6; }
+
+.formTop{top:-22px !important; left:26px; background-color: #fff; padding:0 5px; font-size: 14px; color:#58bff6 !important;}
+
+.submit{
+	float:right;
+	width: 112px;
+	height: 37px;
+	-moz-border-radius: 19px;
+	-webkit-border-radius: 19px;
+	border-radius: 19px;
+	-moz-background-clip: padding;
+	-webkit-background-clip: padding-box;
+	background-clip: padding-box;
+	background-color: #55b1df;
+	border:1px solid #55b1df;
+	border:none;
+	color: #fff;
+	font-weight: bold;
+}
+
+.submit:hover{
+	background-color: transparent; 
+	border:1px solid #55b1df; 
+	color:#55b1df; 
+	cursor:pointer;
+}
+.submit:focus{outline: none;}
+
+
+
+
+/*each_question page*/
+
+
+
+
+.btn {
+  -webkit-border-radius: 50;
+  -moz-border-radius: 50;
+  border-radius: 50px;
+  background-color: transparent;
+  padding: 10px 10px 10px 10px;
+  text-decoration: none;
+}
+
+.btn:hover {
+  background: grey;
+  text-decoration: none;
+  cursor:pointer;
+}
+
+.btn:focus {
+	outline:none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

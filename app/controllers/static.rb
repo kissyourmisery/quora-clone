@@ -57,7 +57,7 @@ post '/login' do
 	user = User.find_by(email: params[:user][:email])
 	if user && user.authenticate(params[:user][:password])
 		session[:id] = user.id
-		redirect "/users/" + user.id.to_s
+		redirect "/"
 	else
 		flash[:error] = 'Wrong email/password combo'
 		#'Wrong email/password combo' will override the previous 'user.errors.full_message' in the 'flash[:error]'
@@ -161,63 +161,98 @@ end
 ########QuestionVote #############
 post '/questions/:id/upvote' do
 
-	if logged_in?
-		vote = QuestionVote.find_by(question_id: params[:id], user_id: current_user.id)
+	vote = QuestionVote.find_by(question_id: params[:id], user_id: current_user.id)
+	@question = Question.find(params[:id])
 
-		if vote #check if question has been voted by user
-			if vote.vote == 1 #Check if that vote is an upvote. the second 'vote' is the column name whereas the first 'vote' is an object
-				@message = "You can only upvote once per question"
-				@question = Question.find(params[:id])
-				erb :"static/each_question"
+	if vote #check if question has been voted by user
+		if vote.vote == 1 #Check if that vote is an upvote. the second 'vote' is the column name whereas the first 'vote' is an object
+			@message = "You can only upvote once per question" ###BUG: this never appears!
+			erb :"static/home"
 
-			else #if vote is a downvote, change vote to upvote
-				@message = "Your vote has been changed to upvote"
-				vote.update(vote: 1) #'update' is an active record method, not a column name
-				@question = Question.find(params[:id])
-				erb :"static/each_question"
-			end
-
-		else #if question has not been voted, create new vote
-			@message = "Your vote has been casted"
-			current_user.question_votes.create(question_id: params[:id], vote: 1)
-			@question = Question.find(params[:id])
-			erb :"static/each_question"
+		else #if vote is a downvote, change vote to upvote
+			@message = "Your vote has been changed to upvote"
+			vote.update(vote: 1) #'update' is an active record method, not a column name
+			erb :"static/home"
 		end
 
-	else
-		@message = "Please login to vote"
-		erb :"static/login"
+	else #if question has not been voted, create new vote
+		@message = "Your vote has been casted"
+		current_user.question_votes.create(question_id: params[:id], vote: 1)
+		erb :"static/home"
 	end
 end
 
+
+
 post '/questions/:id/downvote' do
 
-	if logged_in?
-		vote = QuestionVote.find_by(question_id: params[:id], user_id: current_user.id)
 
-		if vote 
-			if vote.vote == 0 
-				@message = "You can only downvote once per question"
-				@question = Question.find(params[:id])
-				erb :"static/each_question"
+	vote = QuestionVote.find_by(question_id: params[:id], user_id: current_user.id)
+	@question = Question.find(params[:id])
 
-			else 
-				@message = "Your vote has been changed to downvote"
-				vote.update(vote: 0) 
-				@question = Question.find(params[:id])
-				erb :"static/each_question"
-			end
+	if vote 
+		if vote.vote == 0 
+			@message = "You can only downvote once per question"
+			erb :"static/home"
+
+		else
+			@message = "Your vote has been changed to downvote"
+			vote.update(vote: 0) 
+			erb :"static/home"
+		end
+
+	else 
+		@message = "Your vote has been casted"
+		current_user.question_votes.create(question_id: params[:id], vote: 0)
+		erb :"static/home"
+	end
+end
+
+########AnswerVote #############
+post '/questions/:question_id/answer/:answer_id/upvote' do
+
+	vote = AnswerVote.find_by(answer_id: params[:answer_id], user_id: current_user.id)
+	@question = Question.find(params[:question_id])
+
+	if vote 
+		if vote.vote == 1 
+			@message = "You can only upvote once per answer"
+			erb :"static/each_question"
 
 		else 
-			@message = "Your vote has been casted"
-			current_user.question_votes.create(question_id: params[:id], vote: 0)
-			@question = Question.find(params[:id])
+			@message = "Your vote has been changed to upvote"
+			vote.update(vote: 1) 
 			erb :"static/each_question"
 		end
 
-	else
-		@message = "Please login to vote"
-		erb :"static/login"
+	else 
+		@message = "Your vote has been casted"
+		current_user.answer_votes.create(answer_id: params[:answer_id], vote: 1)
+		erb :"static/each_question"
+	end
+end
+
+post '/questions/:question_id/answer/:answer_id/downvote' do
+
+
+	vote = AnswerVote.find_by(answer_id: params[:answer_id], user_id: current_user.id)
+	@question = Question.find(params[:question_id])
+
+	if vote 
+		if vote.vote == 0
+			@message = "You can only downvote once per answer"
+			erb :"static/each_question"
+
+		else 
+			@message = "Your vote has been changed to downvote"
+			vote.update(vote: 0) 
+			erb :"static/each_question"
+		end
+
+	else 
+		@message = "Your vote has been casted"
+		current_user.answer_votes.create(answer_id: params[:answer_id], vote: 0)
+		erb :"static/each_question"
 	end
 end
 

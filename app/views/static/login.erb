@@ -1,14 +1,19 @@
+<body id="overall">
+
 <h2>Login</h2>
 
-<form method=post action=/login>
-	<input type=text placeholder="Email" name="user[email]">
-	<br>
-	<input type=password placeholder="Password" name="user[password]">
-	<br>
-	<input type=submit value="Login">
-</form>
-
+<div class="form-item">
+	<form method=post action=/login>
+		<input class="form-style" type=text placeholder="Email" name="user[email]">
+		<br>
+		<input class="form-style" type=password placeholder="Password" name="user[password]">
+		<br>
+		<input class="submit" type=submit value="Login">
+	</form>
+</div>
 
 <% if flash[:error] %>
 	<%= flash[:error] %>
 <% end %>
+
+</body>

@@ -1,6 +1,8 @@
 # Specify gemfile Location and general variables
 ENV['BUNDLE_GEMFILE'] ||= File.expand_path('../../Gemfile', __FILE__)
 
+require 'font-awesome-less'
+
 # Perform requiring gem that we need
 ######################################################################
 	# basic

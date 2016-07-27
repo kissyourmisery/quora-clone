@@ -1,13 +1,36 @@
 <h1><%= @question.question_text %></h1>
-<h4><%= @question.count_upvotes %> Upvotes</h4>
-<h4><%= @question.count_downvotes %> Downvotes</h4>
+<span> <%= @question.count_upvotes %> <i class="fa fa-hand-o-up"></i>  <%= @question.count_downvotes %> <i class="fa fa-hand-o-down"></i></span>
+
 
 
 <ul>
 	<% @question.answers.each do |answer| %>
-		<li><%= answer.answer_text %></li>
+		<li><%= answer.answer_text %>
+
+			<%if logged_in?%>
+				<div class="upvote">
+					<form action="/questions/<%=@question.id%>/answer/<%=answer.id%>/upvote" method="post" style='float:left;'>
+						<span>
+							<button class="btn" type="submit"><i class="fa fa-hand-o-up fa-2x"></i></button> <%= answer.count_upvotes %> 
+						</span>
+					</form>
+				</div>
+
+				<div class="downvote">
+					<form action="/questions/<%=@question.id%>/answer/<%=answer.id%>/downvote" method="post">
+						<span>
+							<button class="btn" type="submit"><i class="fa fa-hand-o-down fa-2x"></i></button> <%= answer.count_downvotes %>
+						</span>
+					</form>
+				</div>
+			<%end%>
+		</li>
 	<% end %>
 </ul>
+
+<% if @message %>
+	<%= @message %>
+<% end %>
 
 
 <% if logged_in? %>
@@ -22,9 +45,6 @@
 		<input type="hidden" name="question[id]" value="<%= @question.id %>">
 		<input type="submit" value="Submit!">
 	</form>
-
-
-
 
 <% end %>
 

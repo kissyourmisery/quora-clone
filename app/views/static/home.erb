@@ -3,20 +3,31 @@
 <ul>
 	<% Question.all.each do |question| %>
 		<li><a href="/questions/<%=question.id%>"><%=question.question_text%></a>
-			<div class="upvote">
-				<form action="/questions/<%=question.id%>/upvote" method="post">
-					<input type="submit" value="Upvote">
-				</form>
-			</div>
+			<%if logged_in?%>
 
-			<div class="downvote">
-				<form action="/questions/<%=question.id%>/downvote" method="post">
-					<input type="submit" value="Downvote">
-				</form>
-			</div>
+				<div class="upvote">
+					<form action="/questions/<%=question.id%>/upvote" method="post" style='float:left;'>
+						<span>
+							<button class="btn" type="submit"><i class="fa fa-hand-o-up fa-2x"></i></button> <%= question.count_upvotes %>
+						</span>
+					</form>
+				</div>
+
+				<div class="downvote">
+					<form action="/questions/<%=question.id%>/downvote" method="post">
+						<span>
+							<button class="btn" type="submit"><i class="fa fa-hand-o-down fa-2x"></i></button> <%= question.count_downvotes %>
+						</span>
+					</form>
+				</div>
+			<% end %>
 		</li>
 	<% end %>
 </ul>
+
+<% if @message %>
+	<%= @message %>
+<% end %>
 
 <% if logged_in? %>
 	<h4><form method="get" action="/questions/new">
