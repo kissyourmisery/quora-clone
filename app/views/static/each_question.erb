@@ -1,11 +1,25 @@
+<% if logged_in? %>
+	<form method="post" action="/answers">
+		<input class="form-style" type=text placeholder="Know the answer? Contribute now!" name="answer">
+		<input type="hidden" name="question[id]" value="<%= @question.id %>">
+
+	</form>
+<%end%>
+
+<body id="overall">
+
+ 
 <h1><%= @question.question_text %></h1>
 <span> <%= @question.count_upvotes %> <i class="fa fa-hand-o-up"></i>  <%= @question.count_downvotes %> <i class="fa fa-hand-o-down"></i></span>
 
-
+<br>
+<br>
 
 <ul>
-	<% @question.answers.each do |answer| %>
-		<li><%= answer.answer_text %>
+	<% @question.answers.sort{ |a,b| b.answer_votes.where(vote: 1).count <=> a.answer_votes.where(vote: 1).count }.each do |answer| %>
+		<li><a href="/users/<%=answer.user.id%>"><%=answer.user.name%></a>: <%= answer.answer_text %>
+			<br>
+			<br>
 
 			<%if logged_in?%>
 				<div class="upvote">
@@ -24,6 +38,7 @@
 					</form>
 				</div>
 			<%end%>
+			<hr id="line"></hr>
 		</li>
 	<% end %>
 </ul>
@@ -32,21 +47,47 @@
 	<%= @message %>
 <% end %>
 
+</body>
+
 
 <% if logged_in? %>
-	<form method="post" action="/questions">
-		<input type=text placeholder="Post another question!" name="question">
-		<input type="submit" value="Submit!">
-	</form>
 
 
-	<form method="post" action="/answers">
-		<input type=text placeholder="Or answer this question!" name="answer">
+
+	<form method="post" action="/tags">
+		<input class="form-style" type="text" name="tag[content]" placeholder="What's your tags?">
 		<input type="hidden" name="question[id]" value="<%= @question.id %>">
-		<input type="submit" value="Submit!">
+
 	</form>
+
+	<form method="post" action="/questions">
+		<input class="form-style" type=text placeholder="Post another question!" name="question">
+
+	</form>
+
 
 <% end %>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

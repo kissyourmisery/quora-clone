@@ -1,20 +1,17 @@
-<% if logged_in? %>
-
+<body id="overall">
 	<h1>Edit your user particulars!</h1>
+	<div class="form-item">
+		<form method="post" action="/users/<%= current_user.id %>">
+			<input type="hidden" name="_method" value="put">
+			<input class="form-style" type="text" name="user[name]" value="<%= current_user.name %>">
+			<br>
+			<input class="form-style" type="text" name="user[email]" value="<%= current_user.email %>">
+			<br>
+			<input class="form-style" type="text" name="user[password]" placeholder="type in new password">
+		</form>
+	</div>
 
-	<form method="post" action="/users/<%= current_user.id %>">
-		<input type="hidden" name="_method" value="put">
-		<label>Name:</label>
-		<input type="text" name="user[name]" value="<%= current_user.name %>">
-		<label>Email:</label>
-		<input type="text" name="user[email]" value="<%= current_user.email %>">
-		<label>Password:</label>
-		<input type="text" name="user[password]" value="<%= current_user.password %>">
-		<input type="submit" value="Update!">
-	</form>
-
-<% else %>
-
+</body>
 
 
-<% end %>
+

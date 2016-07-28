@@ -1,0 +1,10 @@
+<body id="overall">
+
+<h1>#<%=@tag.content%></h1>
+
+<% @questions.each do |question| %>
+	<p><a href="/questions/<%=question.id%>"><%= question.question_text %></a></p>
+<% end %>
+
+</body>
+

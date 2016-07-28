@@ -3,6 +3,7 @@ enable :sessions
 
 
 get '/' do
+	@all_questions= Question.all.paginate(page: params[:page], per_page: 4)
   erb :"static/home"
 end
 
@@ -94,7 +95,7 @@ get '/questions/new' do
 end
 
 get '/questions/:question_id' do
-	@question = Question.find(params[:question_id]) 
+	@question = Question.find(params[:question_id])
 	erb :"static/each_question"
 end
 
@@ -162,21 +163,19 @@ end
 post '/questions/:id/upvote' do
 
 	vote = QuestionVote.find_by(question_id: params[:id], user_id: current_user.id)
-	@question = Question.find(params[:id])
+	@all_questions= Question.all.paginate(page: params[:page], per_page: 4)
 
 	if vote #check if question has been voted by user
 		if vote.vote == 1 #Check if that vote is an upvote. the second 'vote' is the column name whereas the first 'vote' is an object
-			@message = "You can only upvote once per question" ###BUG: this never appears!
+			@message = "You can only upvote once per question" 
 			erb :"static/home"
 
 		else #if vote is a downvote, change vote to upvote
-			@message = "Your vote has been changed to upvote"
 			vote.update(vote: 1) #'update' is an active record method, not a column name
 			erb :"static/home"
 		end
 
 	else #if question has not been voted, create new vote
-		@message = "Your vote has been casted"
 		current_user.question_votes.create(question_id: params[:id], vote: 1)
 		erb :"static/home"
 	end
@@ -188,7 +187,7 @@ post '/questions/:id/downvote' do
 
 
 	vote = QuestionVote.find_by(question_id: params[:id], user_id: current_user.id)
-	@question = Question.find(params[:id])
+	@all_questions= Question.all.paginate(page: params[:page], per_page: 4)
 
 	if vote 
 		if vote.vote == 0 
@@ -196,13 +195,11 @@ post '/questions/:id/downvote' do
 			erb :"static/home"
 
 		else
-			@message = "Your vote has been changed to downvote"
 			vote.update(vote: 0) 
 			erb :"static/home"
 		end
 
 	else 
-		@message = "Your vote has been casted"
 		current_user.question_votes.create(question_id: params[:id], vote: 0)
 		erb :"static/home"
 	end
@@ -220,13 +217,11 @@ post '/questions/:question_id/answer/:answer_id/upvote' do
 			erb :"static/each_question"
 
 		else 
-			@message = "Your vote has been changed to upvote"
 			vote.update(vote: 1) 
 			erb :"static/each_question"
 		end
 
 	else 
-		@message = "Your vote has been casted"
 		current_user.answer_votes.create(answer_id: params[:answer_id], vote: 1)
 		erb :"static/each_question"
 	end
@@ -244,16 +239,34 @@ post '/questions/:question_id/answer/:answer_id/downvote' do
 			erb :"static/each_question"
 
 		else 
-			@message = "Your vote has been changed to downvote"
 			vote.update(vote: 0) 
 			erb :"static/each_question"
 		end
 
 	else 
-		@message = "Your vote has been casted"
 		current_user.answer_votes.create(answer_id: params[:answer_id], vote: 0)
 		erb :"static/each_question"
 	end
+end
+
+########
+post '/tags' do
+	tag = params[:tag][:content].split(",")
+	tag.each do |t|
+		new_tag = Tag.find_by_content(t)
+		if new_tag.nil?
+			new_tag=Tag.create(content: t)
+		end
+		QuestionTag.create(question_id: params[:question][:id], tag_id: new_tag.id)
+	end
+
+	redirect '/'
+end
+
+get '/tags/:id' do
+	@tag = Tag.find(params[:id])
+	@questions = @tag.questions
+	erb :"static/each_tag"
 end
 
 

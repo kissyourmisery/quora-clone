@@ -1,40 +1,105 @@
+<body id="home_page">
+
+	<div id='wrapper'>
+		<div id="questions-container">
+
+			<ul>
+				<% @all_questions.each do |question| %>
+					<li><a id="question_home" href="/questions/<%=question.id%>"><%=question.question_text%></a>
+						<br>
+						<br>
+						<%if logged_in?%>
+
+							<div class="upvote">
+								<form action="/questions/<%=question.id%>/upvote" method="post" style='float:left;'>
+									<span>
+										<button class="btn" type="submit"><i class="fa fa-hand-o-up fa-2x"></i></button> <%= question.count_upvotes %>
+									</span>
+								</form>
+							</div>
+
+							<div class="downvote">
+								<form action="/questions/<%=question.id%>/downvote" method="post">
+									<span>
+										<button class="btn" type="submit"><i class="fa fa-hand-o-down fa-2x"></i></button> <%= question.count_downvotes %>
+									</span>
+								</form>
+							</div>
+						<% end %>
+						<hr id="line"></hr>
+					</li>
+				<% end %>
+			</ul>
+		</div> <!-- question container -->
 
 
-<ul>
-	<% Question.all.each do |question| %>
-		<li><a href="/questions/<%=question.id%>"><%=question.question_text%></a>
-			<%if logged_in?%>
+		<div id="tag_section">
 
-				<div class="upvote">
-					<form action="/questions/<%=question.id%>/upvote" method="post" style='float:left;'>
-						<span>
-							<button class="btn" type="submit"><i class="fa fa-hand-o-up fa-2x"></i></button> <%= question.count_upvotes %>
-						</span>
-					</form>
-				</div>
+			<h5>#trending</h5>
 
-				<div class="downvote">
-					<form action="/questions/<%=question.id%>/downvote" method="post">
-						<span>
-							<button class="btn" type="submit"><i class="fa fa-hand-o-down fa-2x"></i></button> <%= question.count_downvotes %>
-						</span>
-					</form>
-				</div>
-			<% end %>
-		</li>
+			<ul>
+				<% Tag.all.each do |t| %>
+						<li><a href="/tags/<%=t.id%>"><%= t.content %></a></li>
+					<%end%>
+			
+			</ul>
+		</div><!-- tag section -->
+
+		<div class="clear"></div> <!-- after float right and left  --> 
+	</div>
+
+	
+
+	<% if @message %>
+		<%= @message %>
 	<% end %>
-</ul>
 
-<% if @message %>
-	<%= @message %>
-<% end %>
 
-<% if logged_in? %>
-	<h4><form method="get" action="/questions/new">
-					<input class="beautify" type="submit" value="Add a new question">
-			</form></h4>
+	<% if logged_in? %>
 
-<% end %>
+
+		<button id="myBtn" class="beautify">Add a new question</button>
+
+		<div id="myModal" class="modal">
+			<div class="modal-content">
+				<span class="close">x</span>
+				<h1>Add a Question</h1>
+				<form method="post" action="/questions">
+					<input class="form-style" type=text placeholder="Post a question!" name="question">
+				</form>
+			</div>
+		</div>
+
+
+	<% end %>
+
+<div id="page"><%= will_paginate @all_questions %></div>
+
+</body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

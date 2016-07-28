@@ -1,5 +1,5 @@
 #log_out{
-	position:absolute;
+	position:fixed;
 	top:0px;
 	right:0px;
 }
@@ -34,6 +34,7 @@ body#overall{
   position: absolute;
   left: 35%;
   top: 30%;
+  width: 500px;
 }
 
 div.form-item{
@@ -115,6 +116,122 @@ div.form-item .form-style:focus{outline: none; border:1px solid #58bff6; color:#
 .btn:focus {
 	outline:none;
 }
+
+/*homepage modal for ask a question*/
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/*home page questions layout*/
+ul{
+	list-style: none;
+	padding:0;
+	margin:0;
+}
+
+a {
+	text-decoration:none;
+}
+
+div#home_page{
+	font-family:'HelveticaNeue','Arial', sans-serif;
+
+}
+
+#question_home:hover {
+	text-decoration: underline;
+}
+
+body#home_page {
+	margin:0;
+	background: url(http://static1.squarespace.com/static/54aaef8ee4b03ccd2a132a1c/t/54b0e707e4b02eb8a94d9256/1420879624266/6166830_orig.jpg?format=2500w) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  font-family:'HelveticaNeue','Arial', sans-serif;
+}
+/*http://picview.info/download/20150302/abstract-bow-tie-minimalistic-white-background-1600x1200.jpg*/
+
+#wrapper {
+     width: 300px;
+     margin: auto;
+
+}
+
+#questions-container, #tag_section {
+	border: 1px transparent;
+    float: left;
+    height: 450px;
+    width: 500px;
+
+}
+
+#clear {
+	clear: both;
+}
+
+#page {
+	position:absolute;
+	bottom: 10px;
+}
+
+#myBtn {
+	position:fixed;
+	top: 40px;
+	right:0px;
+}
+
+
+/*each_page*/
+
+div#each_page{
+	font-family:'HelveticaNeue','Arial', sans-serif;
+	width: 500px;
+} 
+
+#ask_question{
+	position:fixed;
+	top: 40px;
+	right:0px;
+}
+
+
 
 
 

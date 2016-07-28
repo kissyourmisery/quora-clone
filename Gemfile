@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 # Ruby Version
 # ruby "2.2.1"
 
-gem 'font-awesome-less'
+
 
 # Adding Sinatra Drivers
 gem 'sinatra'
@@ -30,6 +30,10 @@ gem 'byebug'
 
 #To protect and encrypt user password
 gem 'bcrypt'
+
+#front-end shit
+gem 'font-awesome-less'
+gem 'will_paginate', '~> 3.0.6'
 
 group :development, :test do
 	# Adding shotgun for local web hosting

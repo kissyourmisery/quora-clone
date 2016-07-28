@@ -3,6 +3,9 @@
 			</form></h4>
 
 
+
+
+
 <h2>My Questions:</h2>
 <ul>
 	<% current_user.questions.all.each do |question| %>
@@ -20,9 +23,18 @@
 </ul>
 
 <div>
-<form method="get" action="/questions/new">
-				<input class="beautify" type="submit" value="Add a new question">
-			</form></div>
+
+<button id="myBtn" class="beautify">Add a new question</button>
+
+<div id="myModal" class="modal">
+	<div class="modal-content">
+		<span class="close">x</span>
+		<h1>Add a Question</h1>
+		<form method="post" action="/questions">
+			<input class="form-style" type=text placeholder="Post a question!" name="question">
+		</form>
+	</div>
+</div>
 
 
 

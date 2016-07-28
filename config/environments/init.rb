@@ -1,7 +1,7 @@
 # Specify gemfile Location and general variables
 ENV['BUNDLE_GEMFILE'] ||= File.expand_path('../../Gemfile', __FILE__)
 
-require 'font-awesome-less'
+
 
 # Perform requiring gem that we need
 ######################################################################
@@ -24,6 +24,11 @@ require 'sinatra/flash'
 require 'erb'
 require 'uri'
 require 'byebug'
+
+#front-end shit
+require 'font-awesome-less'
+require 'will_paginate'
+require 'will_paginate/active_record'
 ######################################################################
 
 
