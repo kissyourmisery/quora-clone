@@ -158,10 +158,12 @@ get '/answers/:id/delete' do
 end
 
 delete '/answers/:id' do
-	answer = Answer.find(params[:id])
-	question = answer.question_id
-	answer.destroy
-	redirect '/' #why can i not direct it to user show page???
+	ans = Answer.find(params[:id])
+	qn_id = ans.question_id
+	that_question = Question.find(qn_id)
+	that_user_id = that_question.user_id
+	ans.destroy
+	redirect '/users/' + that_user_id.to_s
 end
 
 
