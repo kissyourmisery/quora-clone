@@ -69,6 +69,7 @@ end
 
 get '/users/:id' do
 	if logged_in? #if 'logged_in?' is not called, then someone from another computer can just type '/:name' and get your user profile 
+		@user = User.find(params[:id])
 		erb :'static/profile'
 	else
 		flash[:error] = 'You are not logged in'
@@ -125,8 +126,11 @@ delete '/questions/:id' do
 	question.answers.each do |answer|
 		answer.destroy
 	end
+	question.tags.each do |tag|
+		tag.destroy
+	end
 	question.destroy
-	erb :"static/profile"
+	redirect "/users/" + question.user_id.to_s
 end
 
 post '/answers' do
@@ -155,9 +159,11 @@ end
 
 delete '/answers/:id' do
 	answer = Answer.find(params[:id])
+	question = answer.question_id
 	answer.destroy
-	erb :"static/profile"
+	redirect '/' #why can i not direct it to user show page???
 end
+
 
 ########QuestionVote #############
 post '/questions/:id/upvote' do

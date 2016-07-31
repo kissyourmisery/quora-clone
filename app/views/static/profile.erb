@@ -1,40 +1,51 @@
-<h4><form method="get" action="/users/<%= current_user.id %>/edit">
-				<input class="beautify" type="submit" value="Update your particulars!">
-			</form></h4>
+<%if logged_in?%>
+
+	<h2><%=@user.name%>'s Page</h2>
+
+	<%if current_user == @user%>
+
+		<h4><form method="get" action="/users/<%= current_user.id %>/edit">
+						<input class="beautify" type="submit" value="Update your particulars!">
+					</form></h4>
+
+		<button id="myBtn" class="beautify">Add a new question</button>
+
+		<div id="myModal" class="modal">
+			<div class="modal-content">
+				<span class="close">x</span>
+				<h1>Add a Question</h1>
+				<form method="post" action="/questions">
+					<input class="form-style" type=text placeholder="Post a question!" name="question">
+				</form>
+			</div>
+		</div>
+
+	<%end%>
 
 
 
 
 
-<h2>My Questions:</h2>
-<ul>
-	<% current_user.questions.all.each do |question| %>
-		<li><a href="/questions/<%= question.id %>"><%= question.question_text %></a> <a href="/questions/<%= question.id %>/edit">Edit</a> <a href="/questions/<%= question.id %>/delete">Delete</a></li>
-	<% end %>
-</ul>
+	<h2>My Questions:</h2>
+	<ul>
+		<% @user.questions.all.each do |question| %>
+			<li><a href="/questions/<%= question.id %>"><%= question.question_text %></a> <a href="/questions/<%= question.id %>/edit">Edit</a> <a href="/questions/<%= question.id %>/delete">Delete</a></li>
+		<% end %>
+	</ul>
 
-<br>
+	<br>
 
-<h2>My Answers:</h2>
-<ul>
-	<% current_user.answers.all.each do |answer| %>
-		<li><a href="/questions/<%= answer.question_id %>"><%= answer.answer_text %></a> <a href="/answers/<%= answer.id %>/edit">Edit</a> <a href="/answers/<%= answer.id %>/delete">Delete</a></li>
-	<% end %>
-</ul>
+	<h2>My Answers:</h2>
+	<ul>
+		<% @user.answers.all.each do |answer| %>
+			<li><a href="/questions/<%= answer.question_id %>"><%= answer.answer_text %></a> <a href="/answers/<%= answer.id %>/edit">Edit</a> <a href="/answers/<%= answer.id %>/delete">Delete</a></li>
+		<% end %>
+	</ul>
 
-<div>
+	<div>
 
-<button id="myBtn" class="beautify">Add a new question</button>
 
-<div id="myModal" class="modal">
-	<div class="modal-content">
-		<span class="close">x</span>
-		<h1>Add a Question</h1>
-		<form method="post" action="/questions">
-			<input class="form-style" type=text placeholder="Post a question!" name="question">
-		</form>
-	</div>
-</div>
+<%end%>
 
 
 
