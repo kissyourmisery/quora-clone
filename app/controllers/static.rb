@@ -259,7 +259,9 @@ end
 
 ########
 post '/tags' do
-	tag = params[:tag][:content].split(",")
+	a = params[:tag][:content].split(/(\s*),(\s*)/)
+	b = a.each {|x| x.lstrip!}
+	tag = b.reject{|element| element.empty?}
 	tag.each do |t|
 		new_tag = Tag.find_by_content(t)
 		if new_tag.nil?
